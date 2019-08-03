@@ -1,0 +1,121 @@
+﻿<Window x:Class="HistogramComparer.Desktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:local="clr-namespace:HistogramComparer.Desktop"
+        mc:Ignorable="d"
+        Title="Color diff" Height="450" Width="800">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15" />
+            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel x:Name="toolPanel"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    Orientation="Horizontal">
+            
+        </StackPanel>
+        <StackPanel x:Name="statusPanel"
+                    Grid.Row="0"
+                    Grid.Column="4"
+                    Orientation="Horizontal">
+            <TextBlock Text="{Binding TotalDiffText}"></TextBlock>
+            <TextBlock Text="{Binding MaxDiffText}"></TextBlock>
+        </StackPanel>
+        
+        <TextBlock x:Name="lblImage1"
+                   Grid.Row="1"
+                   Grid.Column="0"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   RenderTransformOrigin="0.5,0.5"
+                   Text="IMAGE 1">
+            <TextBlock.LayoutTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBlock.LayoutTransform>
+        </TextBlock>
+
+        <TextBlock x:Name="lblImage2"
+                   Grid.Row="2"
+                   Grid.Column="0"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   RenderTransformOrigin="0.5,0.5"
+                   Text="IMAGE 2">
+            <TextBlock.LayoutTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBlock.LayoutTransform>
+        </TextBlock>
+
+        <Button x:Name="btnChooseImg1"
+                Grid.Row="1"
+                Grid.Column="1"
+                Content="Browse..."
+                Command="{Binding SelectImg1}" />
+        <Button x:Name="btnChooseImg2"
+                Grid.Row="2"
+                Grid.Column="1"
+                Content="Browse..."
+                Command="{Binding SelectImg2}" />
+
+        <Image x:Name="img1"
+               Grid.Row="1"
+               Grid.Column="2"
+               Source="{Binding Img1Source}" />
+        <Image x:Name="img2"
+               Grid.Row="2"
+               Grid.Column="2"
+               Source="{Binding Img2Source}" />
+
+        <lvc:CartesianChart 
+            x:Name="img1Histogram" 
+            Grid.Row="1"
+            Grid.Column="3"
+            Series="{Binding SeriesCollection1}" 
+            LegendLocation="Right" >
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="#" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
+            </lvc:CartesianChart.AxisY>
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Color" Labels="{Binding Labels}"></lvc:Axis>
+            </lvc:CartesianChart.AxisX>
+        </lvc:CartesianChart>
+
+        <lvc:CartesianChart 
+            x:Name="img2Histogram" 
+            Grid.Row="2"
+            Grid.Column="3"
+            Series="{Binding SeriesCollection2}" 
+            LegendLocation="Right" >
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="#" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
+            </lvc:CartesianChart.AxisY>
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Color" Labels="{Binding Labels}"></lvc:Axis>
+            </lvc:CartesianChart.AxisX>
+        </lvc:CartesianChart>
+    </Grid>
+</Window>
